@@ -1,0 +1,26 @@
+# Copy to receiver.toml; create the state directory and mount destination first.
+listen = "0.0.0.0:8443"
+database = "state/receiver.sqlite"
+token_env = "MD_RECEIVER_TOKEN"
+webhook_token_env = "MD_WEBHOOK_TOKEN"
+max_file_bytes = 10737418240
+min_free_bytes = 2147483648
+scan_timeout_seconds = 43200
+
+[core]
+url = "https://core.example.invalid:8008"
+credential_env = "MD_CORE_API_KEY"
+# ca_pem = "certificates/company-ca.pem"
+allow_insecure_http = false
+
+[tls]
+certificate_pem = "certificates/receiver-chain.pem"
+private_key_pem = "certificates/receiver-key.pem"
+
+[destinations.production]
+label = "正式分享目錄"
+# macOS: "/Volumes/TransferShare/Incoming"
+# Linux: "/mnt/transfer/Incoming"
+# Windows: use a TOML literal string for UNC; service identity needs SMB permissions.
+# path = '\\fileserver\Transfer\Incoming'
+path = "/Volumes/TransferShare/Incoming"

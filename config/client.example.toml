@@ -1,0 +1,16 @@
+# Copy to client.toml. All relative paths resolve from the process working directory.
+state_file = "client-state.json"
+chunk_bytes = 8388608
+multipart_threshold = 67108864
+
+[core]
+url = "https://core.example.invalid:8008"
+credential_env = "MD_CORE_API_KEY"
+# ca_pem = "certificates/company-ca.pem"
+allow_insecure_http = false
+
+[receiver]
+url = "https://receiver.example.invalid:8443"
+credential_env = "MD_RECEIVER_TOKEN"
+# ca_pem = "certificates/company-ca.pem"
+allow_insecure_http = false

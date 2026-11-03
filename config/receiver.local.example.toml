@@ -1,0 +1,17 @@
+# Development with scripts/mock_core.py only. Contains no credentials.
+listen = "127.0.0.1:8081"
+database = "state/receiver.sqlite"
+token_env = "MD_RECEIVER_TOKEN"
+webhook_token_env = "MD_WEBHOOK_TOKEN"
+max_file_bytes = 1073741824
+min_free_bytes = 0
+scan_timeout_seconds = 3600
+
+[core]
+url = "http://127.0.0.1:8008"
+credential_env = "MD_CORE_API_KEY"
+allow_insecure_http = false
+
+[destinations.local]
+label = "本機驗證目錄"
+path = "delivery"

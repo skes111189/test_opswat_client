@@ -1,0 +1,22 @@
+[package]
+name = "client"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+[dependencies]
+protocol.workspace = true
+core-client.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+chrono.workspace = true
+uuid.workspace = true
+tokio.workspace = true
+reqwest.workspace = true
+tokio-util.workspace = true
+toml.workspace = true
+iced = { version = "0.13", default-features = false, features = ["tiny-skia", "tokio", "advanced"] }
+rfd = "0.15"
+walkdir = "2"
+csv = "1"
+zeroize = "1"
+tempfile.workspace = true

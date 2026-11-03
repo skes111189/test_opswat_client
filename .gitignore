@@ -1,0 +1,15 @@
+/target/
+/config/client.toml
+/config/receiver.toml
+*.sqlite*
+*.part
+*.log
+/dist/
+/client-state.json
+/state/
+/delivery/
+/test-results/
+*.receiver.lock
+__pycache__/
+*.pyc
+.DS_Store

@@ -1,0 +1,14 @@
+# Development with scripts/mock_core.py only.
+state_file = "client-state.json"
+chunk_bytes = 8388608
+multipart_threshold = 67108864
+
+[core]
+url = "http://127.0.0.1:8008"
+credential_env = "MD_CORE_API_KEY"
+allow_insecure_http = false
+
+[receiver]
+url = "http://127.0.0.1:8081"
+credential_env = "MD_RECEIVER_TOKEN"
+allow_insecure_http = false
