@@ -13,9 +13,11 @@ ROOT = Path(__file__).resolve().parents[1]
 def check(rust_syntax=False):
     manifests = list(ROOT.rglob("Cargo.toml"))
     manifests = [p for p in manifests if "target" not in p.relative_to(ROOT).parts]
-    root = tomllib.loads((ROOT / "Cargo.toml").read_text())
+    # Windows defaults to a legacy code page (for example CP1252).  The
+    # repository, configuration examples and workflow are UTF-8 by contract.
+    root = tomllib.loads((ROOT / "Cargo.toml").read_text(encoding="utf-8"))
     for member in root["workspace"]["members"]:
-        manifest = tomllib.loads((ROOT / member / "Cargo.toml").read_text())
+        manifest = tomllib.loads((ROOT / member / "Cargo.toml").read_text(encoding="utf-8"))
         assert manifest["package"]["name"] == Path(member).name
         for source in ["lib.rs", "main.rs"]:
             if (ROOT / member / "src" / source).is_file():
@@ -27,17 +29,17 @@ def check(rust_syntax=False):
                 assert (ROOT / member / spec["path"] / "Cargo.toml").is_file()
     examples = list((ROOT / "config").glob("*.example.toml"))
     for path in manifests + examples + [ROOT / "rust-toolchain.toml"]:
-        tomllib.loads(path.read_text())
+        tomllib.loads(path.read_text(encoding="utf-8"))
     for path in examples:
-        config = tomllib.loads(path.read_text())
+        config = tomllib.loads(path.read_text(encoding="utf-8"))
         for key in ["core", "receiver"]:
             if key in config:
                 endpoint = config[key]
                 assert "credential_env" in endpoint
                 assert "apikey" not in endpoint and "token" not in endpoint
     for path in (ROOT / "scripts").glob("*.py"):
-        ast.parse(path.read_text(), filename=str(path))
-    workflow = (ROOT / ".github/workflows/build.yml").read_text()
+        ast.parse(path.read_text(encoding="utf-8"), filename=str(path))
+    workflow = (ROOT / ".github/workflows/build.yml").read_text(encoding="utf-8")
     for target in ["x86_64-pc-windows-msvc", "aarch64-apple-darwin", "x86_64-unknown-linux-gnu"]:
         assert target in workflow
     rust_files = list((ROOT / "crates").rglob("*.rs"))
